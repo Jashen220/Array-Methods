@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            background-color: rgb(2, 102, 116);
+            color: white;
+            /* height: 100vh; */
+            gap: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            background-image:linear-gradient(180deg, black, rgb(10, 100, 112));
+            padding:30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 15px rgb(15, 199, 199);
+
+            & .content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+
+                & .cont1 {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
+                    flex-direction: column;
+
+                    & div {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 5px;
+                    }
+                    
+                }
+            }
+            & input{
+                        border: none;
+                        outline: none;
+                        padding:15px;
+                        border-radius:5px;
+                        color: black;
+                        font-size: 15px;
+                    }
+            & button{
+                padding: 10px;
+                width: 100px;
+                margin-top: 20px;
+                border-radius: 5px;
+                border: none;
+            }
+        }
+        button{
+            padding: 10px;
+                width: 100px;
+                margin-top: 20px;
+                border-radius: 5px;
+                border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <h2>Add Word</h2>
+            <div>
+                <input type="text" id="add-word" placeholder="Word to add">
+                
+            </div>
+            <button onclick="addWord()">Add</button>
+        </div>
+        <div class="content">
+            <h2>Edit Word</h2>
+            <div class="cont1">
+                <div>
+                    <input type="text" id="word-to-change" placeholder="Word to change">
+                    <input type="text" id="word-to-replace" placeholder="Word to replace">
+                </div>
+                <button onclick="editWord()">Edit</button>
+            </div>
+        </div>
+        <div class="content">
+            <h2>Delete Word</h2>
+            <div>
+                <input type="text" id="delete-word" placeholder="Word to delete">
+                
+            </div>
+            <button onclick="deleteWord()">Delete</button>
+        </div>
+    </div>
+    <h1 id="display"></h1>
+
+    <div class="content">
+        <p>Apply Array Operations/Methods</p>
+
+        <div class="cont1">
+            <button onclick="Arraylength()">Array Length</button>
+            <button onclick="ArraytoString()">Array to String</button>
+
+            <button onclick="Arrayat()"> At Index 1</button>
+
+            <button onclick="Arrayjoin()">Join</button>
+
+            <button onclick="Arraypop()">Pop Last</button>
+
+            <button onclick="Arraypush()">Push Word</button>
+
+            <button onclick="Arrayshift()">Shift First</button>
+
+            <button onclick="Arrayunshift()">Unshift Word</button>
+            <button onclick="Arraydelete()">Array delete</button>
+            <button onclick="Arrayconcat()">Concat Array</button>
+            <button onclick="ArraycopyWithin()">Copy Within</button>
+            
+            <button onclick="Arraysplice()">Splice Array</button>
+            <button onclick="ArraytoSpliced()">To Spliced Array</button>
+            <button onclick="Arrayslice()">Slice Array</button>
+            <br><br>
+            <button onclick="Arrayflat()">Flat Array</button>
+            <button onclick="setNestedArray()">Display Nested Array</button>
+        </div>
+    </div>
+    <script>
+
+        let array = []
+
+        function display() {
+            document.querySelector('#display').textContent = JSON.stringify(array);
+        }
+
+        function addWord() {
+            const WordToAdd = document.querySelector('#add-word').value
+            if (WordToAdd) {
+                array.push(WordToAdd)
+                document.querySelector('#add-word').value = ''
+                display()
+            }
+        }
+
+        function editWord() {
+            const wordtoChange = document.querySelector('#word-to-change').value
+            const wordtoReplace = document.querySelector('#word-to-replace').value
+            const index = array.indexOf(wordtoChange)
+            if (index != -1 && wordtoChange) {
+                array[index] = wordtoReplace
+                document.querySelector('#word-to-change').value = ''
+                document.querySelector('#word-to-replace').value = ''
+                display()
+            }
+        }
+
+        function deleteWord() {
+            const del = document.querySelector('#delete-word').value
+            const index = array.indexOf(del)
+            if (index != -1 && del) {
+                array.splice(index, 1)
+                document.querySelector('#delete-word').value = ''
+                display()
+            }
+        }
+        display()
+
+
+        function Arraylength(){
+            alert("The array length is " + array.length)
+        }
+        function ArraytoString(){
+            alert("Array in String: " + array.toString())
+        }
+
+        function Arrayat(){
+            alert("Array at index 1: " + array.at(1))
+        }
+        function Arrayjoin(){
+            alert(array.join(" - "))
+        }
+        function Arraypop(){
+            let poparr = array.pop()
+            display()
+        }
+        function Arraypush() {
+            const WordToAdd = prompt("Enter word to push:");
+            if (WordToAdd) {
+                array.push(WordToAdd);
+                display();
+            }
+        }
+        function Arrayshift(){
+            let shiftarr = array.shift()
+
+            display()
+        }
+        function Arrayunshift() {
+            const WordToAdd = prompt("Enter word to unshift:");
+            if (WordToAdd) {
+                array.unshift(WordToAdd);
+                display();
+            }
+        }
+        
+        function Arraydelete() {
+            const index = prompt("Enter index to delete:");
+            if (index !== null && !isNaN(index) && index >= 0 && index < array.length) {
+                delete array[index];
+                display();
+            } else {
+                alert("Invalid index.");
+            }
+        }
+        function Arrayconcat() {
+            const newArray = [prompt("Enter a new word to concat:")];
+            if (newArray[0]) {
+                array = array.concat(newArray);
+                display();
+            }
+        }
+        function ArraycopyWithin() {
+            const target = prompt("Enter target index:");
+            const start = prompt("Enter start index:");
+            if (target !== null && start !== null) {
+                array.copyWithin(Number(target), Number(start));
+                display();
+            }
+        }
+        function Arraysplice() {
+            const start = prompt("Enter start index:");
+            const deleteCount = prompt("Enter delete count:");
+            array.splice(Number(start), Number(deleteCount));
+            display();
+        }
+        function ArraytoSpliced() {
+            const start = prompt("Enter start index:");
+            const deleteCount = prompt("Enter delete count:");
+            const items = prompt("Enter items to add, comma-separated:").split(',');
+            array = array.toSpliced(Number(start), Number(deleteCount), ...items);
+            display();
+        }
+        function Arrayslice() {
+            const start = prompt("Enter start index:");
+            const end = prompt("Enter end index:");
+            alert("Array Slice: " + array.slice(Number(start), Number(end)));
+        }
+
+
+        function setNestedArray() {
+            nestedArray = [[1, 2, [3, 4]], [5, 6], [7, [8, [9]]]];
+            array = nestedArray;  
+            display();
+        }
+
+        function Arrayflat() {
+            array = nestedArray.flat(); 
+            display();
+        }
+
+        display();
+    </script>
+</body>
+
+</html>
